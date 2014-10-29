@@ -5,10 +5,10 @@
   <title>Robot Navigation</title>
   <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
     <script src="http://code.angularjs.org/1.3.0/angular.js"></script>
-    <script src="app.js"></script>
-    <script src="controller.js"></script>
-    <script src="directives.js"></script>
-     <script src="services.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controller.js"></script>
+    <script src="js/directives.js"></script>
+     <script src="js/services.js"></script>
 </head>
 
 
@@ -38,7 +38,7 @@
 		    	<button class="btn btn-primary btn-block" type="button" ng-disabled="upCond.$invalid" ng-click="upSave = !upSave"> Save </button>
 		    </div>
 		  </form>
-		  <img src="Robot.png" style="height:500px">
+		  <img src="img/Robot.png" style="height:500px">
 		</div>
 		
 		<div class="row" ng-show="!saveInit && upSave">
@@ -69,7 +69,7 @@
 		    	<div class="alert alert-danger" role="alert" ng-show="showInitNotice"> Your initial conditions are outside the upper-right coordinates of the rectangular world. <br>Tip: please make sure that both X and Y are in the given range.</div>
 		    </div>
 		  </form>
-		  <img src="moon.svg" style="height:500px">
+		  <img src="img/moon.svg" style="height:500px">
 		</div>
 
 		<div class="row" ng-show="saveInit">
@@ -91,8 +91,8 @@
 					<br><br>
 			  	<button class="btn btn-primary" type="button"  ng-click="resetForm()"> Generate a new robot</button> 
 			  </div>
-			  	<img src="sRobot.jpg" style="height:100px; position:relative; bottom:{{updated.y*4}}px; left:{{updated.x*4}}px; transform: rotate({{updated.d}}deg);">
-			  	<img src="fRobot.jpg" style="height:100px; float:right; margin-top:{{updated.x*4-20}}px;margin-right:{{updated.y*4}}px">
+			  	<img src="img/sRobot.jpg" style="height:100px; position:relative; bottom:{{updated.y*4}}px; left:{{updated.x*4}}px; transform: rotate({{updated.d}}deg);">
+			  	<img src="img/fRobot.jpg" style="height:100px; float:right; margin-top:{{updated.x*4-20}}px;margin-right:{{updated.y*4}}px">
 			</form>  
 			<br><br><br>
 
