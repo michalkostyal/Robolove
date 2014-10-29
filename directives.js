@@ -15,9 +15,9 @@ angular.module('robot').directive('userCommand', ['Conversions', function(Conver
           scope.updated.d = Conversions.intoDegrees(scope.init.o);
           for (i = 0; i < transInput.length; ++i) {
               var myHor = Math.cos( Conversions.toRadians(scope.updated.d) );
-              var myHor = Math.round(myHor);
+              myHor = Math.round(myHor);
               var myVer = Math.sin( Conversions.toRadians(scope.updated.d) );
-              var myVer = Math.round(myVer);
+              myVer = Math.round(myVer);
               switch (transInput[i]) {
                   case 'L':
                       scope.updated.d += 90;
@@ -39,7 +39,7 @@ angular.module('robot').directive('userCommand', ['Conversions', function(Conver
           scope.updated.direction = Conversions.intoDirections(scope.updated.d);
         }
         return transInput;
-      };
+      }
       function updateValues(valueX, addX, valueY, addY){
         var message = '';
         var additionX = valueX + addX;
@@ -62,9 +62,9 @@ angular.module('robot').directive('userCommand', ['Conversions', function(Conver
           additionY = valueY;
           scope.robotLost = true;
           console.log(scope.edgeValues);
-        }; 
+        } 
         return [additionX,additionY, message];
-      };
+      }
       ngModelCtrl.$parsers.push(myInput);
     }
   }; 

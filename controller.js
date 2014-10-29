@@ -16,6 +16,6 @@ angular.module('robot').controller('robotCtrl', function($scope){
 			$scope.showInitNotice = false;
 		} else { 
 			$scope.showInitNotice = true;
-		};
+		}
 	};
 });

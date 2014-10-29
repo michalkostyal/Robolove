@@ -4,16 +4,12 @@ angular.module('robot').service('Conversions', function(){
 			switch (d) {
 			    case 'E':
 			        return 0;
-			        break;
 			    case 'W':
 			        return 180;
-			        break;
 			    case 'S':
 			        return 270;
-			        break;
 			    case 'N':
 			        return 90;
-			        break;
 			    
 			}
     };
