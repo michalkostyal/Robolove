@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html >
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>Robot Navigation</title>
+  <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://code.angularjs.org/1.3.0/angular.js"></script>
+    <script src="app.js"></script>
+    <script src="controller.js"></script>
+    <script src="directives.js"></script>
+     <script src="services.js"></script>
+</head>
+
+
+<body ng-app="robot" ng-controller="robotCtrl">
+  <div class="container" >
+	  <div class="row"> 
+		  <h1 class="col-sm-8 text-center">Catch your Robo-love</h1>
+		</div>
+
+		<div class="row" ng-hide="upSave">
+			<h4>Enter the the upper-right coordinates of the rectangular world</h4>
+		  <form class="col-sm-3" name="upCond" novalidate>
+		    <div class="form-group" ng-class="{ 'has-error' : upCond.upX.$invalid}">
+		      <label>X</label>
+		      <input type="number" ng-model="up.x" name="upX"  class="form-control" min="1" max="50" ng-pattern="/^[0-9]{1,2}$/" required/>
+	    		<div ng-show="upCond.upX.$error.min || upCond.upX.$error.max">
+	      	Enter an integer in range 1 to 50!</div>
+		    </div>
+		    <div class="form-group" ng-class="{ 'has-error' : upCond.upY.$invalid}">
+			    <label>Y</label>
+			   	<input type="number" ng-model="up.y" name="upY"  class="form-control" min="1" max="50" ng-pattern="/^[0-9]{1,2}$/" required />
+		    	<div ng-show="upCond.upY.$error.min || upCond.upY.$error.max">
+		      	Enter an integer in range in range 1 to 50!</div>
+		    </div>
+		    <div>
+		    	<br>
+		    	<button class="btn btn-primary btn-block" type="button" ng-disabled="upCond.$invalid" ng-click="upSave = !upSave"> Save </button>
+		    </div>
+		  </form>
+		  <img src="Robot.png" style="height:500px">
+		</div>
+		
+		<div class="row" ng-show="!saveInit && upSave">
+			<h4>Enter the initial coordinates of your Robot</h4>
+		  <form class="col-sm-3" name="initCond" novalidate>
+		    <div class="form-group" ng-class="{ 'has-error' : initCond.initX.$invalid}">
+		      <label>X (in range 0 - {{up.x}})</label>
+		      <input type="number" ng-model="init.x" name="initX"  class="form-control" min="0" max="50" ng-pattern="/^[0-9]{1,2}$/" required/>
+	    		<div ng-show="initCond.initX.$error.min || initCond.initX.$error.max">
+	      	The number must be bigger than 0!</div>
+		    </div>
+		    <div class="form-group" ng-class="{'has-error' : initCond.initY.$invalid}">
+			    <label>Y (in range 0 - {{up.y}})</label>
+			   	<input type="number" ng-model="init.y" name="initY"  class="form-control" min="0" max="50" ng-pattern="/^[0-9]{1,2}$/" required />
+		    	<div ng-show="initCond.initY.$error.min || initCond.initX.$error.max">
+		      	The number must be bigger than 0!</div>
+		    </div>
+		    <div class="form-group" ng-class="{ 'has-error' : initCond.initO.$invalid}">
+		     <label>Orientation (E,W,N,S)</label>
+		     <input type="text" class="form-control" ng-model="init.o" name="initO" ng-pattern="/^[E,W,N,S]$/"  required />
+		     <div ng-show="initCond.initO.$error.pattern">
+		      	Please enter one of the directions<br>(E=east, W=west, N=north, S=south)</div>
+		    </div>
+		    <div>
+		    	<br>
+		    	<button class="btn btn-primary btn-block" type="button" ng-disabled="initCond.$invalid" ng-click="saveInitial()"> Save </button>
+		    	<br>
+		    	<div class="alert alert-danger" role="alert" ng-show="showInitNotice"> Your initial conditions are outside the upper-right coordinates of the rectangular world. <br>Tip: please make sure that both X and Y are in the given range.</div>
+		    </div>
+		  </form>
+		  <img src="moon.svg" style="height:500px">
+		</div>
+
+		<div class="row" ng-show="saveInit">
+			<br>
+			Your initial coordinates are: {{init.x}}, {{init.y}}, {{init.o}} &nbsp;&nbsp;<button class="btn btn-default btn-sm" type="button"  ng-click="resetForm()"> Change</button>
+			
+			<h4>Enter the instructions for the robot (L,R,F):</h4>
+			<form class="col-sm-10" name="instructions" novalidate>
+				<div ng-hide="robotLost">
+			  	<input user-command type="text" ng-model="command" name="command"  class="form-control" maxlength="100" />
+			  </div>
+			  <div ng-show="robotLost"><br>Your command was: {{command}} </div>
+			  <div ng-show="wrongCommand">Please enter one of the commands: L=left, R=right, F=forward</div>
+			  <br>
+				<div class="col-sm-8">
+					<p> {{updated.x}}, {{updated.y}}, {{updated.direction}}, {{updated.m}}</p>
+				</div>
+				<div class="col-sm-8" >
+					<br><br>
+			  	<button class="btn btn-primary" type="button"  ng-click="resetForm()"> Generate a new robot</button> 
+			  </div>
+			  	<img src="sRobot.jpg" style="height:100px; position:relative; bottom:{{updated.y*4}}px; left:{{updated.x*4}}px; transform: rotate({{updated.d}}deg);">
+			  	<img src="fRobot.jpg" style="height:100px; float:right; margin-top:{{updated.x*4-20}}px;margin-right:{{updated.y*4}}px">
+			</form>  
+			<br><br><br>
+
+		</div>
+
+  </div>
+</body>
+</html>
